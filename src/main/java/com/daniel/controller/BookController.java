@@ -64,7 +64,7 @@ public class BookController {
      */
     @RequestMapping(value = "",method = RequestMethod.POST)
     public Result uploadSell(HttpServletRequest request,Book book,
-                           @RequestParam(value = "image" , required = false) MultipartFile file){
+                             @RequestParam(value = "image" , required = false) MultipartFile file){
         // 获取当前用户的信息
         User user = (User) request.getSession().getAttribute("user");
         try {

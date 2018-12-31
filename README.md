@@ -10,13 +10,14 @@
 - IDE：IntelliJ IDEA
 - 项目构建工具：Maven
 - 数据库：MySQL
-- Tomcat：Tomcat 8.0.47
+- Tomcat：Tomcat 8.0.4
+- 需在本地maven安装ikAnalyzer.jar  具体参考:https://blog.csdn.net/by_Annabelle/article/details/79408622?utm_source=blogkpcl11
 
 ## 2、初始化项目
 - 创建一个名为bookshop的数据库，将bookshop.sql导入
 - 打开IntelliJ IDEA，将项目导入
-- 修改jdbc.properties文件配置，同时配置Tomcat
-- 开始运行，访问http://localhost:8080
+- 修改jdbc.properties文件配置，同时配置Tomcat(不用配置系统的ContextPath);
+- 开始运行，访问http://localhost:8080/users
 
 # 目前实现的功能有：
 - 登录

@@ -31,7 +31,10 @@ public interface BookDAO {
      */
     Book get(int id);
 
-    // 添加
+    /**
+     * 添加书
+     * @param  book 书实体
+     */
     void add(Book book);
 
     // 更新

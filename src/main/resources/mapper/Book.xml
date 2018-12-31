@@ -53,7 +53,7 @@
         select * from book where bookType=#{bookType} order by date desc
     </select>
 
-    <select id="count" resultType="_int">
+    <select id="count" resultType="int">
         select count(id) from book
     </select>
 
@@ -68,7 +68,7 @@
         select * from book where uid = #{uid} and bookType = #{bookType} order by date desc
     </select>
 
-    <select id="getUserId" resultType="_int">
+    <select id="getUserId" resultType="int">
         select uid from book where id = #{id}
     </select>
 </mapper>
