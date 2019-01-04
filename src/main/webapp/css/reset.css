@@ -55,12 +55,15 @@
 .nav-search input{
 	width: 230px;
 	height: 25px;
-	margin-top: 8px;
 	border:1px solid #4b4d52;
 	border-radius: 3px;
-	/*outline: none;*/
 	text-indent: 8px;
 	margin-left: 55px;
+	vertical-align:middle;
+	text-align: left;
+	position: relative;
+	top: 20%;
+	float: left;
 }
 
 
@@ -71,6 +74,9 @@
 	border: none;
 	outline: none;
 	cursor: pointer;
+	position: relative;
+	top: 13%;
+	float: left;
 }
 
 .search-logo img{

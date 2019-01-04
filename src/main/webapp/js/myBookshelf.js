@@ -14,11 +14,11 @@ $(function(){
 
     //根据性别显示图片
     if (realSex === "女") {
-        $("#sex-pic").attr("src","img/girl.png");
+        $("#sex-pic").attr("src","/img/girl.png");
     }else if (realSex === "男") {
-        $("#sex-pic").attr("src","img/boy.png");
+        $("#sex-pic").attr("src","/img/boy.png");
     }else{
-        $("#sex-pic").attr("src","img/sex-unknow.png");
+        $("#sex-pic").attr("src","/img/sex-unknow.png");
     }
 
 

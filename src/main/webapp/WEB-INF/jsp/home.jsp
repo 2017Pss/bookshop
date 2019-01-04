@@ -11,7 +11,7 @@
     <!-- 导航 -->
     <nav class="navbar">
         <div class="nav-info">
-            <a href="#" class="username">${user.getName()}</a>
+            <a href="/users/myhome" class="username">${user.getName()}</a>
             <a href="/myBookshelf.do" class="bookshelf">||&nbsp;&nbsp;&nbsp;我的书架</a>
             <a href="/logout.do" class="logout">[ 退 出 ]</a>
         </div> <!-- nav-info -->
@@ -77,8 +77,9 @@
                         <span class="book-detail">${book.getDescription()}</span>
                     </a>
                     <span class="book-price">￥${book.getPrice()}
-                            <a href="#" class="book-buy">立即下单</a>
-                        </span>
+                            <a href="javascript:;" class="book-buy book-collect">已收藏</a>
+                            <a href="javascript:;" class="book-buy">立即下单</a>
+                    </span>
                 </li>
                 </c:forEach>
             </ul><!--  book-list end -->

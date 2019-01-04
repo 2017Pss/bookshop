@@ -12,7 +12,7 @@
 <header>
     <nav class="navbar">
         <div class="nav-info">
-            <a href="#" class="username">chiemin</a>
+            <a href="/users/myhome" class="username">chiemin</a>
             <a href="myBookshelf.do" class="bookshelf">||&nbsp;&nbsp;&nbsp;我的书架</a>
             <a href="logout.do" class="logout">[ 退 出 ]</a>
         </div> <!-- nav-info -->

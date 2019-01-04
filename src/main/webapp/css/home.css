@@ -437,8 +437,10 @@ table {
 	height: 34px;
 	font-size: 17px;
 	line-height: 60px;
-	margin-left: 27px;
+	padding-left: 3px;
+	padding-right: 3px;
 	color: #880b16;
+	text-align: center;
 }
 
 
@@ -446,7 +448,7 @@ table {
 	width: 40px;
 	height: 36px;
 	padding: 5px;
-	margin-left: 45px; 
+	margin-left: 5px;
 	text-decoration: none;
 	color: white;
 	font-size: 13px;
@@ -461,6 +463,11 @@ table {
 	border: 1px solid #626a55;
 	font-weight: 600;
 }
+
+.book-collect{
+	margin-left: 10px;
+}
+
 
 /*脚步*/
 footer{

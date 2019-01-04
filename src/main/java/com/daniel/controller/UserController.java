@@ -61,4 +61,14 @@ public class UserController {
         request.getSession().removeAttribute("user");
         return new ModelAndView("login");
     }
+
+    /***
+     * 跳转到个人主页
+     * @return
+     */
+    @RequestMapping("/myhome")
+    public ModelAndView myhome() {
+        return new ModelAndView("myhome");
+    }
+
 }
