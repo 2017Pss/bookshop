@@ -5,3 +5,5 @@
 *.iml
 **/jdbc.properties
 /.idea/**
+logs
+*.log
