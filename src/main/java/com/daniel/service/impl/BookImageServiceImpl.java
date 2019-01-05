@@ -1,7 +1,6 @@
 package com.daniel.service.impl;
 
 import com.daniel.dao.BookImageDAO;
-import com.daniel.pojo.Book;
 import com.daniel.pojo.BookImage;
 import com.daniel.service.BookImageService;
 import org.springframework.beans.factory.annotation.Autowired;
