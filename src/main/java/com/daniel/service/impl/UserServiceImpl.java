@@ -28,4 +28,8 @@ public class UserServiceImpl implements UserService{
         return userDAO.getByStudentid(studnetid);
     }
 
+    @Override
+    public void updateUserInfo(User user) {
+        userDAO.updateUserInfo(user);
+    }
 }

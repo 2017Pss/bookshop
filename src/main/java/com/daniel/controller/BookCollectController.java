@@ -36,4 +36,5 @@ public class BookCollectController {
         bookCollectService.add(bookCollect);
         return ResultGenerator.genSuccessResult(null);
     }
+
 }

@@ -135,9 +135,17 @@
         $(obj).html(inputObj);
     }
 
-    function convertText(obj){
-        $(obj).text($(obj).children("input").val());
+    function convertText(obj,value){
+        $(obj).text(value);
     }
+
+    function isNull (value){
+        if(!value || value.trim() == ''){
+            return true;
+        }
+        return false;
+    }
+
 
     $(function(){
         $(".person-info a.edit").click(function(){
@@ -145,10 +153,42 @@
             var addressObj = $(".contact .address");
             var majorObj = $(".contact .major");
             if($(".contact").find("input").length > 0){
-                convertText(numObj);
-                convertText(addressObj);
-                convertText(majorObj);
-                $(this).text("编辑个人信息");
+                var tel = $(numObj).children("input").val();
+                var address = $(addressObj).children("input").val();
+                var major =  $(majorObj).children("input").val();
+                if (isNull(tel) || isNull(address) || isNull(major)){
+                    alert("编辑信息框不能为空，修改失败");
+                    return ;
+                }
+                if(tel.length !=11){
+                    alert("手机号码格式不正确");
+                    return ;
+                }
+                var _self = this;
+                $.ajax({
+                    type:"POST",
+                    url:"/users/change-info",
+                    async:false,
+                    dataType:"json",
+                    data:{'tel':tel, 'address':address, 'major':major},
+                    success:function (result) {
+                        if(result.resultCode == 200){
+                            convertText(numObj,tel);
+                            convertText(addressObj,address);
+                            convertText(majorObj,major);
+                            $(_self).text("编辑个人信息");
+                            alert("保存信息成功");
+                        }else{
+                            convertEditInput(numObj,tel);
+                            convertEditInput(addressObj,address);
+                            convertEditInput(majorObj,major);
+                            alert("保存信息失败；原因："+result.message);
+                        }
+                    },
+                    error:function(){
+                        alert("修改失败");
+                    }
+                });
             }else{
                 convertEditInput(numObj,numObj.text());
                 convertEditInput(addressObj,addressObj.text());

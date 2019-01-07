@@ -6,6 +6,7 @@ import com.daniel.pojo.User;
 import com.daniel.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -69,6 +70,32 @@ public class UserController {
     @RequestMapping("/myhome")
     public ModelAndView myhome() {
         return new ModelAndView("myhome");
+    }
+
+    @RequestMapping(value = "/change-info",method = RequestMethod.POST)
+    @ResponseBody
+    public Result changeinfo(HttpServletRequest request, String tel, String address, String major) {
+
+        if(!StringUtils.hasText(tel)){
+            return ResultGenerator.genFailResult("电话号码不能为空");
+        }
+        if(!StringUtils.hasText(address)){
+            return ResultGenerator.genFailResult("地址不能为空");
+        }
+        if(!StringUtils.hasText(major)){
+            return ResultGenerator.genFailResult("班级不能为空");
+        }
+        if(address.length() > 8){
+            return ResultGenerator.genFailResult("地址太长，请重新输入");
+        }
+
+        // 获取当前用户的信息
+        User user = (User) request.getSession().getAttribute("user");
+        user.setAddress(address);
+        user.setTel(tel);
+        user.setMajor(major);
+        userService.updateUserInfo(user);
+        return ResultGenerator.genSuccessResult(null);
     }
 
 }

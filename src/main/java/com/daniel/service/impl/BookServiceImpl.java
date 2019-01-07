@@ -45,7 +45,7 @@ public class BookServiceImpl implements BookService{
                     book.setBookImage(bookImageDAO.getByBookId(book.getId()));
                     for (BookCollect bookCollect : bookCollects){
                         if (bookCollect.getBookId() == book.getId()){
-                            book.setCollectId(1);
+                            book.setCollectId(bookCollect.getId());
                         }
                     }
                 }

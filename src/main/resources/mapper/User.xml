@@ -17,6 +17,10 @@
         update user set name=#{name} where id=#{id}
     </update>
 
+    <update id="updateUserInfo" parameterType="User">
+        update user set tel=#{tel}, address=#{address},major=#{major} where id=#{id}
+    </update>
+
     <select id="checkPassword" parameterType="User" resultType="int">
         select count(*) from user where studentid = #{studentid} and password = #{password}
     </select>

@@ -79,12 +79,12 @@
                     <span class="book-price">￥${book.getPrice()}
                             <a href="javascript:;" bookcollectId="${book.getCollectId()}" bookId="${book.getId()}"
                                class="book-buy book-collect
-                                <c:if test="${book.getCollectId()==1}">
+                                <c:if test="${book.getCollectId() >= 1}">
                                     book-disable-collect
                                 </c:if>">
                                 <c:choose>
-                                    <c:when test="${book.getCollectId()==1}">
-                                       已收藏
+                                    <c:when test="${book.getCollectId()>1}">
+                                        已收藏
                                     </c:when>
                                     <c:when test="${book.getCollectId()==0}">
                                         未收藏
@@ -142,7 +142,6 @@
                     var bookId = $(this).attr('bookId');
                     var _self = this;
                     $(_self).text("收藏中");
-                    debugger
                     $.ajax({
                         type:"POST",
                         url:"/collect/add.do",
