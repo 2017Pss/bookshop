@@ -1,10 +1,13 @@
 package com.daniel.service.impl;
 
+import com.daniel.dao.BookCollectDAO;
 import com.daniel.dao.BookDAO;
 import com.daniel.dao.BookImageDAO;
 import com.daniel.dao.CategoryDAO;
 import com.daniel.pojo.Book;
+import com.daniel.pojo.BookCollect;
 import com.daniel.pojo.Category;
+import com.daniel.service.BookCollectService;
 import com.daniel.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +23,16 @@ public class BookServiceImpl implements BookService{
     private CategoryDAO categoryDAO;
     @Autowired
     private BookImageDAO bookImageDAO;
+    @Autowired
+    private BookCollectService bookCollectService;
 
     @Override
-    public Map<Category,List<Book>> listByCategory() {
+    public Map<Category,List<Book>> listByCategory(String studentId) {
+
+        //TODO 查询当前用户所有书籍收藏信息
+        List<BookCollect> bookCollects = bookCollectService.getBookByStudentId(studentId);
+
+
         // 获取所有Category
         List<Category> categories = categoryDAO.list();
         // 使用LinkedHashMap存储，若使用HashMap则无序
@@ -33,6 +43,11 @@ public class BookServiceImpl implements BookService{
                 // 当前的Book对象无BookImage，遍历每个Book对象并放入相应的BookImage
                 for (Book book : books) {
                     book.setBookImage(bookImageDAO.getByBookId(book.getId()));
+                    for (BookCollect bookCollect : bookCollects){
+                        if (bookCollect.getBookId() == book.getId()){
+                            book.setCollectId(1);
+                        }
+                    }
                 }
             }
             booksMap.put(category,books);

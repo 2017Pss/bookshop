@@ -218,3 +218,13 @@ INSERT INTO `user` VALUES (2, '1505101', '许玮甯', '549256', 'f', '1321234567
 INSERT INTO `user` VALUES (3, '1505112', '彭于晏', '123456', 'm', '15812345678', '22#A425', '15级信息管理与信息系统');
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+create table book_collect
+(
+  id          int auto_increment comment '自增ID'  primary key,
+  book_id     int null comment '图书表ID',
+  user_id     int null comment '用户ID',
+  create_time timestamp default CURRENT_TIMESTAMP not null  comment '创建时间'
+)
+  comment '图书收藏表';
+create index book_collect_user_id_index on book_collect (user_id);

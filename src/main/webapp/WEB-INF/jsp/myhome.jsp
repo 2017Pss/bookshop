@@ -131,13 +131,12 @@
 <script>
 
     function convertEditInput(obj,value){
-        var inputObj = $("<input type='text' />");
-        inputObj.val(value);
-        $(obj).html("").html(inputObj);
+        var inputObj = $("<input type='text' />").val(value);
+        $(obj).html(inputObj);
     }
 
     function convertText(obj){
-        $(obj).html($(obj).children("input").val());
+        $(obj).text($(obj).children("input").val());
     }
 
     $(function(){

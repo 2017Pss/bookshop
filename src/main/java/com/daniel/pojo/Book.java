@@ -17,6 +17,7 @@ public class Book {
     private String description;
     private String date;
     private BookImage bookImage;
+    private int collectId;
 
     public int getId() {
         return id;
@@ -136,6 +137,14 @@ public class Book {
 
     public void setBookImage(BookImage bookImage) {
         this.bookImage = bookImage;
+    }
+
+    public int getCollectId() {
+        return collectId;
+    }
+
+    public void setCollectId(int collectId) {
+        this.collectId = collectId;
     }
 
     @Override

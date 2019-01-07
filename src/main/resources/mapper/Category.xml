@@ -12,7 +12,7 @@
         delete from category where id= #{id}
     </delete>
 
-    <select id="get" parameterType="_int" resultType="Category">
+    <select id="get" parameterType="int" resultType="Category">
         select * from   category  where id= #{id}
     </select>
 
@@ -24,7 +24,7 @@
         select * from   category
     </select>
 
-    <select id="count" resultType="_int">
+    <select id="count" resultType="int">
         select count(id) from category
     </select>
 

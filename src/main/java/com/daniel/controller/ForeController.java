@@ -1,10 +1,7 @@
 package com.daniel.controller;
 
 import com.daniel.pojo.*;
-import com.daniel.service.BookImageService;
-import com.daniel.service.BookService;
-import com.daniel.service.CategoryService;
-import com.daniel.service.UserService;
+import com.daniel.service.*;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,12 +19,16 @@ public class ForeController {
     private BookService bookService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BookCollectService bookCollectService;
 
     @RequestMapping("/home.do")
-    public ModelAndView goHome() {
+    public ModelAndView goHome(HttpServletRequest request) {
+        // 获取当前用户的信息
+        User user = (User) request.getSession().getAttribute("user");
         ModelAndView mav =new ModelAndView("home");
         Map<Integer, String> categories = categoryService.listByMap();
-        Map<Category,List<Book>> booksMap = bookService.listByCategory();
+        Map<Category,List<Book>> booksMap = bookService.listByCategory(user.getStudentid());
         mav.addObject("categories",categories);
         mav.addObject("booksMap",booksMap);
         return mav;

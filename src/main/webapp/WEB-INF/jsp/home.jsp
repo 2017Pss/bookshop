@@ -62,8 +62,8 @@
     <div id="container">
 
         <c:forEach items="${booksMap}" var="books" varStatus="booksStatus">
-        <div class="book-part" id="book-part-${books.value.get(0).getCategory().getId()}">
-            <h3 class="book-title"><a href="#">| ${books.key.getName()}</a></h3>
+        <div class="book-part" id="book-part-${books.key.getId()}">
+            <h3 class="book-title"><a href="javascript:;">| ${books.key.getName()}</a></h3>
             <a class="more" href="goBookStore.do?id=${books.value.get(0).getCategory().getId()}"> > > 更多</a>
             <ul class="book-lists">
                 <c:forEach items="${books.value}" var="book" varStatus="bookStatus">
@@ -77,7 +77,19 @@
                         <span class="book-detail">${book.getDescription()}</span>
                     </a>
                     <span class="book-price">￥${book.getPrice()}
-                            <a href="javascript:;" class="book-buy book-collect">已收藏</a>
+                            <a href="javascript:;" bookcollectId="${book.getCollectId()}" bookId="${book.getId()}"
+                               class="book-buy book-collect
+                                <c:if test="${book.getCollectId()==1}">
+                                    book-disable-collect
+                                </c:if>">
+                                <c:choose>
+                                    <c:when test="${book.getCollectId()==1}">
+                                       已收藏
+                                    </c:when>
+                                    <c:when test="${book.getCollectId()==0}">
+                                        未收藏
+                                    </c:when>
+                                </c:choose></a>
                             <a href="javascript:;" class="book-buy">立即下单</a>
                     </span>
                 </li>
@@ -95,6 +107,7 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/xSlider.js"></script>
     <script type="text/javascript">
+
         $(function(){
 
             /*$('#search-button').click(function (event) {
@@ -121,6 +134,35 @@
                 console.log(classId);
                 var classTop =  $("#container").find(("#"+classId)).offset().top;
                 $("html,body").animate({scrollTop:classTop+ "px"}, 500);
+            });
+
+            $(".book-price a.book-collect").click(function(){
+                if($(this).text().trim() === "未收藏") {
+                    //TODO 请求后台加入已收藏
+                    var bookId = $(this).attr('bookId');
+                    var _self = this;
+                    $(_self).text("收藏中");
+                    debugger
+                    $.ajax({
+                        type:"POST",
+                        url:"/collect/add.do",
+                        async:false,
+                        dataType:"json",
+                        data:{'bookId':bookId},
+                        success:function (result) {
+                            if(result.resultCode == 200){
+                                $(_self).text("已收藏").addClass("book-disable-collect");
+                            }else{
+                                $(_self).text("未收藏");
+                            }
+                        },
+                        error:function(){
+                            $(_self).text("未收藏");
+                            alert("收藏失败");
+                        }
+                    });
+
+                }
             });
         })
     </script>

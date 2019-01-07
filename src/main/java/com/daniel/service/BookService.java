@@ -39,9 +39,10 @@ public interface BookService {
     List<Book> listByBookType(int bookType);
 
     /**
+     * @param studentId
      * @return 获取一个Key为Category，Value为对应当前Category的存放Book的List
      */
-    Map<Category,List<Book>> listByCategory();
+    Map<Category,List<Book>> listByCategory(String studentId);
 
     void update(Book book);
 }

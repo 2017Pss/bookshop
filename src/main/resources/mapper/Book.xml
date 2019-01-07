@@ -32,11 +32,11 @@
         (#{name},#{bookType},#{author},#{category.id},#{originalPrice},#{price},#{press},#{publishDate},#{version},#{degree},#{description},#{user.id},#{date})
     </insert>
 
-    <delete id="delete" parameterType="_int" >
+    <delete id="delete" parameterType="int" >
         delete from book where id= #{id}
     </delete>
 
-    <select id="get" parameterType="_int" resultMap="bookResultMap">
+    <select id="get" parameterType="int" resultMap="bookResultMap">
         select * from   book  where id= #{id}
     </select>
 

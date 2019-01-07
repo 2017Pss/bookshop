@@ -458,16 +458,25 @@ table {
 }
 
 .book-buy:hover{
-	/*font-weight: 600;*/
 	background-color: #626a55;
 	border: 1px solid #626a55;
-	font-weight: 600;
+    font-size: 0.8em;
 }
 
 .book-collect{
 	margin-left: 10px;
 }
 
+.book-disable-collect{
+    background: #878a8c;
+    cursor: default;
+    border: 1px solid #878a8c;
+}
+.book-disable-collect:hover{
+    font-size: 13px;
+    background: #878a8c;
+    border: 1px solid #878a8c;
+}
 
 /*脚步*/
 footer{
