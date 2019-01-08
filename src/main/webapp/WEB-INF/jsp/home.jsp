@@ -83,7 +83,7 @@
                                     book-disable-collect
                                 </c:if>">
                                 <c:choose>
-                                    <c:when test="${book.getCollectId()>1}">
+                                    <c:when test="${book.getCollectId()>=1}">
                                         已收藏
                                     </c:when>
                                     <c:when test="${book.getCollectId()==0}">
