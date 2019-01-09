@@ -13,7 +13,7 @@
         </insert>
 
         <select id="getBookByStudentId" parameterType="String" resultType="BookCollect" >
-            select * from book_collect where student_id = #{id}
+            select * from book_collect where student_id = #{id} order by create_time desc
         </select>
 
 </mapper>

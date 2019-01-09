@@ -1,5 +1,9 @@
 package com.daniel;
 
+import com.daniel.pojo.BookCollect;
+
+import java.util.Map;
+
 public class Test {
 
     /*private static Student student;

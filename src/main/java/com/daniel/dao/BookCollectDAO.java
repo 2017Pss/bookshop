@@ -14,7 +14,7 @@ public interface BookCollectDAO {
     void add(BookCollect bookcollect);
 
     /**
-     * 根据条件查询所有图书
+     * 根据条件查询所有收藏图书
      * @param id StudentId
      * @return 对应的List
      */

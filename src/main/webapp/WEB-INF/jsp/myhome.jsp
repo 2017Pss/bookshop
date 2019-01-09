@@ -81,34 +81,29 @@
                 <th width="10%">操作</th>
             </thead>
             <tbody>
-                <tr>
-                    <td><span class="book-name">本草纲目</span></td>
-                    <td><img src="/img/book-list/article/84.jpg"></td>
-                    <td>Y 19.0</td>
-                    <td>Y 3.0</td>
-                    <td>有价值！</td>
-                    <td>移除收藏</td>
-                </tr>
-                <tr>
-                    <td><span class="book-name">本草纲目</span></td>
-                    <td><img src="/img/book-list/article/84.jpg"></td>
-                    <td>Y 19.0</td>
-                    <td>Y 3.0</td>
-                    <td>有价值！</td>
-                    <td>移除收藏</td>
-                </tr>
+               <%--<c:forEach items="${collectMap}" var="collectMap" varStatus="collectStatus">--%>
+                    <c:forEach items="${collectBookList}" var="collectBook" varStatus="bookStatus">
+                        <tr>
+                            <td><span class="book-name">${collectBook.getName()}</span></td>
+                            <td><img src="<%=request.getContextPath()%>/img/book-list/article/${collectBook.getBookImage().getId()}.jpg"></td>
+                            <td>￥${collectBook.getOriginalPrice()}</td>
+                            <td>￥${collectBook.getPrice()}</td>
+                            <td>${collectBook.getDescription()}</td>
+                            <td>移除收藏</td>
+                        </tr>
+                    </c:forEach>
+               <%--</c:forEach>--%>
 
                 <tr>
                     <td colspan="6" style="border-bottom-width: 0px">
                         <div class="pagination">
-                            <span class="disabled" title="首页">首页</span>
+                            <a href="/users/myhome/${1}">首页</a>
                             <span class="disabled" title="上一页">上一页</span>
-                            <span class="current">1</span><span>2</span>
-                            <span>3</span>
-                            <span>4</span>
-                            <span>5</span>
-                            <span>6</span>
-                            <span>7</span>
+                            <a href="/users/myhome/${1}">1</a>
+                            <a href="/users/myhome/${2}">2</a>
+                            <a href="/users/myhome/${3}">3</a>
+                            <a href="/users/myhome/${4}">4</a>
+                            <a href="/users/myhome/${5}">5</a>
                             <span>下一页</span>
                             <span>尾页</span>
                         </div>

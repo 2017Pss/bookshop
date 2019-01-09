@@ -2,7 +2,10 @@ package com.daniel.controller;
 
 import com.daniel.common.Result;
 import com.daniel.common.ResultGenerator;
+import com.daniel.pojo.Book;
+import com.daniel.pojo.BookCollect;
 import com.daniel.pojo.User;
+import com.daniel.service.BookCollectService;
 import com.daniel.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,6 +25,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private BookCollectService bookCollectService;
 
     // 日志文件
     private static final Logger log = Logger.getLogger(UserController.class);
@@ -67,11 +74,28 @@ public class UserController {
      * 跳转到个人主页
      * @return
      */
-    @RequestMapping("/myhome")
-    public ModelAndView myhome() {
-        return new ModelAndView("myhome");
+    @RequestMapping("/myhome/{id}")
+    public ModelAndView myhome(@PathVariable("id") String id ,HttpServletRequest request) {
+        ModelAndView mav =new ModelAndView("myhome");
+        // 获取当前用户的信息
+        User user = (User) request.getSession().getAttribute("user");
+        int intId = Integer.parseInt(id);
+        Map<Integer, List<Book>> collectMap = bookCollectService.getBookAndCollectBook(user.getStudentid());
+        List<Book> collectBookList = collectMap.get(intId);
+        mav.addObject("collectMap",collectMap);
+        mav.addObject("collectBookList",collectBookList);
+        return mav;
     }
 
+
+    /**
+     * 修改个人信息
+     * @param request
+     * @param tel 电话
+     * @param address 地址
+     * @param major 专业
+     * @return
+     */
     @RequestMapping(value = "/change-info",method = RequestMethod.POST)
     @ResponseBody
     public Result changeinfo(HttpServletRequest request, String tel, String address, String major) {
