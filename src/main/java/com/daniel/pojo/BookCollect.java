@@ -7,6 +7,15 @@ public class BookCollect {
     private int bookId;
     private  String studentId;
     private Date createTime;
+    private double collectPrice;
+
+    public double getCollectPrice() {
+        return collectPrice;
+    }
+
+    public void setCollectPrice(double collectPrice) {
+        this.collectPrice = collectPrice;
+    }
 
     public int getId() {
         return id;

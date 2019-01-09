@@ -26,7 +26,7 @@ public class ForeController {
     public ModelAndView goHome(HttpServletRequest request) {
         // 获取当前用户的信息
         User user = (User) request.getSession().getAttribute("user");
-        ModelAndView mav =new ModelAndView("home");
+        ModelAndView mav = new ModelAndView("home");
         Map<Integer, String> categories = categoryService.listByMap();
         Map<Category,List<Book>> booksMap = bookService.listByCategory(user.getStudentid());
         mav.addObject("categories",categories);

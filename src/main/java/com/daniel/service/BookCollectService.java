@@ -13,9 +13,9 @@ public interface BookCollectService {
      */
     void add(BookCollect bookcollect);
 
-    List<Integer> getPageCount(String id);
+    int getPageCount(String id);
 
-    Map<Integer, List<Book>> getBookAndCollectBook(int startIndex,String id);
+    List<Book> getBookAndCollectBook(int startIndex,String id);
 
     List<BookCollect> getBookByStudentId(String id);
 

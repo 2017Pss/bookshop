@@ -79,15 +79,14 @@ public class UserController {
         ModelAndView mav =new ModelAndView("myhome");
         // 获取当前用户的信息
         User user = (User) request.getSession().getAttribute("user");
-        int intId = Integer.parseInt(id);
-        Map<Integer, List<Book>> collectMap = bookCollectService.getBookAndCollectBook(intId,user.getStudentid());
-        List<Integer> pageCount = bookCollectService.getPageCount(user.getStudentid());
+        int pageNumber = Integer.parseInt(id);
+        List<Book> collectBooks = bookCollectService.getBookAndCollectBook(pageNumber,user.getStudentid());
+        int pageCount = bookCollectService.getPageCount(user.getStudentid());
         mav.addObject("pageCount",pageCount);
-        mav.addObject("collectMap",collectMap);
-        mav.addObject("intId",intId);
+        mav.addObject("collectBooks",collectBooks);
+        mav.addObject("pageNumber",pageNumber);
         return mav;
     }
-
 
     /**
      * 修改个人信息

@@ -29,4 +29,10 @@ public interface BookCollectDAO {
      */
     List<BookCollect> getListByStudentId(@Param("start") int start, @Param("count") int count, @Param("id") String id);
 
+    /**
+     * 查寻所收藏book的总数量
+     * @param id studentId
+     * @return 总数量
+     */
+    int getCollectBookNum(@Param("id") String id);
 }

@@ -1,5 +1,7 @@
 package com.daniel.pojo;
 
+import java.util.Date;
+
 public class Book {
 
     private int id;
@@ -18,6 +20,15 @@ public class Book {
     private String date;
     private BookImage bookImage;
     private int collectId;
+    private double collectPrice;
+
+    public double getCollectPrice() {
+        return collectPrice;
+    }
+
+    public void setCollectPrice(double collectPrice) {
+        this.collectPrice = collectPrice;
+    }
 
     public int getId() {
         return id;

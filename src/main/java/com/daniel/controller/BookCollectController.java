@@ -25,7 +25,7 @@ public class BookCollectController {
 
     @RequestMapping(value = "/add.do",method = RequestMethod.POST)
     @ResponseBody
-    public Result add(HttpServletRequest request, int bookId) {
+    public Result add(HttpServletRequest request, int bookId, double bookPrice) {
 
         // 获取当前用户的信息
         User user = (User) request.getSession().getAttribute("user");
@@ -33,6 +33,7 @@ public class BookCollectController {
         BookCollect bookCollect = new BookCollect();
         bookCollect.setBookId(bookId);
         bookCollect.setStudentId(user.getStudentid());
+        bookCollect.setCollectPrice(bookPrice);
         bookCollectService.add(bookCollect);
         return ResultGenerator.genSuccessResult(null);
     }

@@ -21,7 +21,7 @@ public class BookCollectServiceImpl implements BookCollectService {
     private BookImageDAO bookImageDAO;
 
     @Override
-    public Map<Integer, List<Book>> getBookAndCollectBook(int startIndex,String id) {
+    public List<Book> getBookAndCollectBook(int startIndex,String id) {
         Map<Integer, List<Book>> collectMap = new LinkedHashMap<>();
         List<Book> collectList = new ArrayList<>();
         List<BookCollect> bookCollects = this.getListByStudentId((startIndex-1)*4,id);
@@ -29,12 +29,12 @@ public class BookCollectServiceImpl implements BookCollectService {
             for (BookCollect bookCollect: bookCollects){
                 Book book = bookDAO.get(bookCollect.getBookId());
                 book.setBookImage(bookImageDAO.getByBookId(book.getId()));
+                book.setCollectPrice(bookCollect.getCollectPrice());
                 collectList.add(book);
             }
+            return collectList;
         }
-        int pageSize = bookCollects.size();
-        collectMap.put(pageSize,collectList);
-        return collectMap;
+        return null;
     }
 
     @Override
@@ -55,15 +55,13 @@ public class BookCollectServiceImpl implements BookCollectService {
     }
 
     @Override
-   public List<Integer> getPageCount(String id) {
-        List<BookCollect> bookCollects = bookCollectDAO.getBookByStudentId(id);
-        int count = (bookCollects.size()%4==0)?(bookCollects.size()/4):(bookCollects.size()/4+1);
-        List<Integer> list = new ArrayList<>();
-        if (count>0){
-            for (int i=1;i<=count; i++){
-                list.add(i);
-            }
+   public int getPageCount(String id){
+        int collectBookNum = bookCollectDAO.getCollectBookNum(id);
+        if (collectBookNum > 0){
+            return (collectBookNum%4==0)?(collectBookNum/4):(collectBookNum/4+1);
+        }else{
+            return 1;
         }
-        return list;
+
     }
 }

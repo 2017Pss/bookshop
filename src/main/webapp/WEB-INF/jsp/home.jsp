@@ -77,7 +77,7 @@
                         <span class="book-detail">${book.getDescription()}</span>
                     </a>
                     <span class="book-price">￥${book.getPrice()}
-                            <a href="javascript:;" bookcollectId="${book.getCollectId()}" bookId="${book.getId()}"
+                            <a href="javascript:;" bookcollectId="${book.getCollectId()}" bookPrice="${book.getPrice()}" bookId="${book.getId()}"
                                class="book-buy book-collect
                                 <c:if test="${book.getCollectId()>0}">
                                     book-disable-collect
@@ -140,14 +140,16 @@
                 if($(this).text().trim() === "未收藏") {
                     //TODO 请求后台加入已收藏
                     var bookId = $(this).attr('bookId');
+                    var bookPrice = $(this).attr('bookPrice');
                     var _self = this;
                     $(_self).text("收藏中");
+                    debugger;
                     $.ajax({
                         type:"POST",
                         url:"/collect/add.do",
                         async:false,
                         dataType:"json",
-                        data:{'bookId':bookId},
+                        data:{'bookId':bookId,'bookPrice':bookPrice},
                         success:function (result) {
                             if(result.resultCode == 200){
                                 $(_self).text("已收藏").addClass("book-disable-collect");

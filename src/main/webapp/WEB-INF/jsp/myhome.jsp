@@ -42,7 +42,8 @@
     </p>
     <input type="hidden" id="sexInput" value="${user.getSex()}">
     <p>
-        <a href="javascript:;" class="sex" id="sexText"></a><img id="sex-pic" src="<%=request.getContextPath()%>/img/girl.png">
+        <a href="javascript:;" class="sex" id="sexText"></a><img id="sex-pic"
+                                                                 src="<%=request.getContextPath()%>/img/girl.png">
     </p>
     <p class="set">
         <a href="javascript:;" class="edit">编辑个人信息</a>
@@ -75,40 +76,47 @@
             <thead>
             <th width="10%">书名</th>
             <th width="20%">封面</th>
-            <th width="15%">原价</th>
-            <th width="15%">售价</th>
+            <th width="10%">收藏价</th>
+            <th width="10%">原价</th>
+            <th width="10%">售价</th>
             <th width="30%">商品描述</th>
             <th width="10%">操作</th>
             </thead>
             <tbody>
-            <c:forEach items="${collectMap}" var="collectMaps" varStatus="collectStatus">
-                <c:forEach items="${collectMaps.value}" var="collectBook" varStatus="bookStatus">
-                    <tr>
-                        <td><span class="book-name">${collectBook.getName()}</span></td>
-                        <td><img
-                                src="<%=request.getContextPath()%>/img/book-list/article/${collectBook.getBookImage().getId()}.jpg">
-                        </td>
-                        <td>￥${collectBook.getOriginalPrice()}</td>
-                        <td>￥${collectBook.getPrice()}</td>
-                        <td>${collectBook.getDescription()}</td>
-                        <td>移除收藏</td>
-                    </tr>
-                </c:forEach>
+            <c:forEach items="${collectBooks}" var="collectBook" varStatus="collectStatus">
+                <tr>
+                    <td><span class="book-name">${collectBook.getName()}</span></td>
+                    <td><img
+                            src="<%=request.getContextPath()%>/img/book-list/article/${collectBook.getBookImage().getId()}.jpg">
+                    </td>
+                    <td>￥${collectBook.getCollectPrice()}</td>
+                    <td>￥${collectBook.getOriginalPrice()}</td>
+                    <td>￥${collectBook.getPrice()}</td>
+                    <td>${collectBook.getDescription()}</td>
+                    <td>移除收藏</td>
+                </tr>
             </c:forEach>
 
             <tr>
                 <td colspan="6" style="border-bottom-width: 0px">
-                    <div class="pagination" pageCount="${pageCount}">
-                        <a href="/users/myhome/1">首页</a>
-                        <a href="/users/myhome/${intId-1}" currentPage="${intId-1}" class="previousPage"
-                        <c:if test="${intId-1==0}">
-                            class="disabled"
-                        </c:if>>上一页</a>
-                        <c:forEach items="${pageCount}" var="pageCount" varStatus="countStatus">
-                            <a href="/users/myhome/${pageCount.toString()}">${pageCount.toString()}</a>
+                    <div class="pagination" pagenumber="${pageNumber}">
+                        <a href="/users/myhome/1" class="firstPage">首页</a>
+                        <c:if test="${pageNumber-1==0}">
+                            <span class="disabled">上一页</span>
+                        </c:if>
+                        <c:if test="${pageNumber-1>0}">
+                            <a href="/users/myhome/${pageNumber-1}" currentPage="${pageNumber}" class="previousPage">上一页</a>
+                        </c:if>
+                        <c:forEach var="pageCounts" begin="1" end="${pageCount}">
+                            <a href="/users/myhome/${pageCounts}">${pageCounts}</a>
                         </c:forEach>
-                        <a href="/users/myhome/${intId+1}" class="nextPage">下一页</a>
-                        <a href="/users/myhome/${pageCount.size()}" class="previousPage">尾页</a>
+                        <c:if test="${pageNumber+1>pageCount}">
+                            <span class="disabled">下一页</span>
+                        </c:if>
+                        <c:if test="${pageNumber+1<=pageCount}">
+                            <a href="/users/myhome/${pageNumber+1}" currentPage="${pageNumber}" class="nextPage">下一页</a>
+                        </c:if>
+                        <a href="/users/myhome/${pageCount}" class="lastPage">尾页</a>
                     </div>
                 </td>
             </tr>

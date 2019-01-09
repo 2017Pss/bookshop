@@ -7,9 +7,9 @@
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="BookCollect">
             insert into book_collect
-                ( book_id,student_id)
+                ( book_id,student_id,collect_price)
             values
-                (#{bookId},#{studentId})
+                (#{bookId},#{studentId},#{collectPrice})
      </insert>
 
     <select id="getBookByStudentId" parameterType="String" resultType="BookCollect">
@@ -19,6 +19,10 @@
     <select id="getListByStudentId" resultType="BookCollect">
         select * from book_collect where student_id = #{id} order by create_time desc
             limit #{start},#{count}
+    </select>
+
+    <select id="getCollectBookNum" resultType="int">
+        select count(*) from book_collect where student_id = #{id}
     </select>
 
 </mapper>
