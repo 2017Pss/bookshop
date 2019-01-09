@@ -5,15 +5,20 @@
 
 <mapper namespace="com.daniel.dao.BookCollectDAO">
 
-        <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="BookCollect" >
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="BookCollect">
             insert into book_collect
                 ( book_id,student_id)
             values
                 (#{bookId},#{studentId})
-        </insert>
+     </insert>
 
-        <select id="getBookByStudentId" parameterType="String" resultType="BookCollect" >
+    <select id="getBookByStudentId" parameterType="String" resultType="BookCollect">
             select * from book_collect where student_id = #{id} order by create_time desc
-        </select>
+    </select>
+
+    <select id="getListByStudentId" resultType="BookCollect">
+        select * from book_collect where student_id = #{id} order by create_time desc
+            limit #{start},#{count}
+    </select>
 
 </mapper>

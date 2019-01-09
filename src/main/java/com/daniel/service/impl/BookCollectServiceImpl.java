@@ -21,10 +21,10 @@ public class BookCollectServiceImpl implements BookCollectService {
     private BookImageDAO bookImageDAO;
 
     @Override
-    public Map<Integer, List<Book>> getBookAndCollectBook(String id) {
+    public Map<Integer, List<Book>> getBookAndCollectBook(int startIndex,String id) {
         Map<Integer, List<Book>> collectMap = new LinkedHashMap<>();
         List<Book> collectList = new ArrayList<>();
-        List<BookCollect> bookCollects = this.getBookByStudentId(id);
+        List<BookCollect> bookCollects = this.getListByStudentId((startIndex-1)*4,id);
         if (bookCollects.size()>0){
             for (BookCollect bookCollect: bookCollects){
                 Book book = bookDAO.get(bookCollect.getBookId());
@@ -32,15 +32,15 @@ public class BookCollectServiceImpl implements BookCollectService {
                 collectList.add(book);
             }
         }
-        int size = (collectList.size()%4==0)?(collectList.size()/4):(collectList.size()/4+1);
-        for(int i=1; i<=size; i++){
-            List<Book> bookList = new ArrayList<>();
-            for (int j=1; j<=4; j++){
-                bookList.add(collectList.get(4*(i-1)+j-1));
-            }
-            collectMap.put(i,bookList);
-        }
+        int pageSize = bookCollects.size();
+        collectMap.put(pageSize,collectList);
         return collectMap;
+    }
+
+    @Override
+    public List<BookCollect> getBookByStudentId(String id) {
+        List<BookCollect> bookCollects = bookCollectDAO.getBookByStudentId(id);
+        return bookCollects;
     }
 
     @Override
@@ -49,8 +49,21 @@ public class BookCollectServiceImpl implements BookCollectService {
     }
 
     @Override
-    public List<BookCollect> getBookByStudentId(String id) {
+    public List<BookCollect> getListByStudentId(int startIndex,String id) {
+        List<BookCollect> books = bookCollectDAO.getListByStudentId(startIndex,4,id);
+        return books;
+    }
+
+    @Override
+   public List<Integer> getPageCount(String id) {
         List<BookCollect> bookCollects = bookCollectDAO.getBookByStudentId(id);
-        return bookCollects;
+        int count = (bookCollects.size()%4==0)?(bookCollects.size()/4):(bookCollects.size()/4+1);
+        List<Integer> list = new ArrayList<>();
+        if (count>0){
+            for (int i=1;i<=count; i++){
+                list.add(i);
+            }
+        }
+        return list;
     }
 }

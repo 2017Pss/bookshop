@@ -80,10 +80,11 @@ public class UserController {
         // 获取当前用户的信息
         User user = (User) request.getSession().getAttribute("user");
         int intId = Integer.parseInt(id);
-        Map<Integer, List<Book>> collectMap = bookCollectService.getBookAndCollectBook(user.getStudentid());
-        List<Book> collectBookList = collectMap.get(intId);
+        Map<Integer, List<Book>> collectMap = bookCollectService.getBookAndCollectBook(intId,user.getStudentid());
+        List<Integer> pageCount = bookCollectService.getPageCount(user.getStudentid());
+        mav.addObject("pageCount",pageCount);
         mav.addObject("collectMap",collectMap);
-        mav.addObject("collectBookList",collectBookList);
+        mav.addObject("intId",intId);
         return mav;
     }
 

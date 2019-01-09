@@ -20,4 +20,13 @@ public interface BookCollectDAO {
      */
     List<BookCollect> getBookByStudentId(@Param("id") String id);
 
+    /**
+     *
+     * @param start 起始收藏图书ID
+     * @param count 需要图书的总数
+     * @param id studentId
+     * @return
+     */
+    List<BookCollect> getListByStudentId(@Param("start") int start, @Param("count") int count, @Param("id") String id);
+
 }

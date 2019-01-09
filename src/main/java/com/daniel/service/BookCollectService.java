@@ -13,7 +13,17 @@ public interface BookCollectService {
      */
     void add(BookCollect bookcollect);
 
+    List<Integer> getPageCount(String id);
+
+    Map<Integer, List<Book>> getBookAndCollectBook(int startIndex,String id);
+
     List<BookCollect> getBookByStudentId(String id);
 
-    Map<Integer, List<Book>> getBookAndCollectBook(String id);
+    /**
+     * 返回分页所需的BookCollect集合
+     * @param startIndex 起始收藏图书ID
+     * @param id studentId
+     * @return
+     */
+    List<BookCollect> getListByStudentId(int startIndex,String id);
 }

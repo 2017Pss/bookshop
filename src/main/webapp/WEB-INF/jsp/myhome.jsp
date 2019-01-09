@@ -42,7 +42,7 @@
     </p>
     <input type="hidden" id="sexInput" value="${user.getSex()}">
     <p>
-        <a href="javascript:;" class="sex" id="sexText"></a><img id="sex-pic" src="<%=request.getContextPath()%>/img/girl.png" >
+        <a href="javascript:;" class="sex" id="sexText"></a><img id="sex-pic" src="<%=request.getContextPath()%>/img/girl.png">
     </p>
     <p class="set">
         <a href="javascript:;" class="edit">编辑个人信息</a>
@@ -73,42 +73,45 @@
     <div id="sell-book">
         <table class="gridtable">
             <thead>
-                <th width="10%">书名</th>
-                <th width="20%">封面</th>
-                <th width="15%">原价</th>
-                <th width="15%">售价</th>
-                <th width="30%">商品描述</th>
-                <th width="10%">操作</th>
+            <th width="10%">书名</th>
+            <th width="20%">封面</th>
+            <th width="15%">原价</th>
+            <th width="15%">售价</th>
+            <th width="30%">商品描述</th>
+            <th width="10%">操作</th>
             </thead>
             <tbody>
-               <%--<c:forEach items="${collectMap}" var="collectMap" varStatus="collectStatus">--%>
-                    <c:forEach items="${collectBookList}" var="collectBook" varStatus="bookStatus">
-                        <tr>
-                            <td><span class="book-name">${collectBook.getName()}</span></td>
-                            <td><img src="<%=request.getContextPath()%>/img/book-list/article/${collectBook.getBookImage().getId()}.jpg"></td>
-                            <td>￥${collectBook.getOriginalPrice()}</td>
-                            <td>￥${collectBook.getPrice()}</td>
-                            <td>${collectBook.getDescription()}</td>
-                            <td>移除收藏</td>
-                        </tr>
-                    </c:forEach>
-               <%--</c:forEach>--%>
+            <c:forEach items="${collectMap}" var="collectMaps" varStatus="collectStatus">
+                <c:forEach items="${collectMaps.value}" var="collectBook" varStatus="bookStatus">
+                    <tr>
+                        <td><span class="book-name">${collectBook.getName()}</span></td>
+                        <td><img
+                                src="<%=request.getContextPath()%>/img/book-list/article/${collectBook.getBookImage().getId()}.jpg">
+                        </td>
+                        <td>￥${collectBook.getOriginalPrice()}</td>
+                        <td>￥${collectBook.getPrice()}</td>
+                        <td>${collectBook.getDescription()}</td>
+                        <td>移除收藏</td>
+                    </tr>
+                </c:forEach>
+            </c:forEach>
 
-                <tr>
-                    <td colspan="6" style="border-bottom-width: 0px">
-                        <div class="pagination">
-                            <a href="/users/myhome/${1}">首页</a>
-                            <span class="disabled" title="上一页">上一页</span>
-                            <a href="/users/myhome/${1}">1</a>
-                            <a href="/users/myhome/${2}">2</a>
-                            <a href="/users/myhome/${3}">3</a>
-                            <a href="/users/myhome/${4}">4</a>
-                            <a href="/users/myhome/${5}">5</a>
-                            <span>下一页</span>
-                            <span>尾页</span>
-                        </div>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="6" style="border-bottom-width: 0px">
+                    <div class="pagination" pageCount="${pageCount}">
+                        <a href="/users/myhome/1">首页</a>
+                        <a href="/users/myhome/${intId-1}" currentPage="${intId-1}" class="previousPage"
+                        <c:if test="${intId-1==0}">
+                            class="disabled"
+                        </c:if>>上一页</a>
+                        <c:forEach items="${pageCount}" var="pageCount" varStatus="countStatus">
+                            <a href="/users/myhome/${pageCount.toString()}">${pageCount.toString()}</a>
+                        </c:forEach>
+                        <a href="/users/myhome/${intId+1}" class="nextPage">下一页</a>
+                        <a href="/users/myhome/${pageCount.size()}" class="previousPage">尾页</a>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -125,69 +128,79 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/myBookshelf.js"></script>
 <script>
 
-    function convertEditInput(obj,value){
+    // $(function () {
+    //     $(".pagination a.previousPage").click(function () {
+    //         var currentPage = $(this).attr('currentPage');
+    //         if (currentPage==0){
+    //             $(this).addClass(disabled);
+    //         }
+    //     });
+    // });
+
+
+    function convertEditInput(obj, value) {
         var inputObj = $("<input type='text' />").val(value);
         $(obj).html(inputObj);
     }
 
-    function convertText(obj,value){
+    function convertText(obj, value) {
         $(obj).text(value);
     }
 
-    function isNull (value){
-        if(!value || value.trim() == ''){
+    function isNull(value) {
+        if (!value || value.trim() == '') {
             return true;
         }
         return false;
     }
 
 
-    $(function(){
-        $(".person-info a.edit").click(function(){
+    $(function () {
+        $(".person-info a.edit").click(function () {
             var numObj = $(".contact .num");
             var addressObj = $(".contact .address");
             var majorObj = $(".contact .major");
-            if($(".contact").find("input").length > 0){
+            if ($(".contact").find("input").length > 0) {
                 var tel = $(numObj).children("input").val();
                 var address = $(addressObj).children("input").val();
-                var major =  $(majorObj).children("input").val();
-                if (isNull(tel) || isNull(address) || isNull(major)){
+                var major = $(majorObj).children("input").val();
+                if (isNull(tel) || isNull(address) || isNull(major)) {
                     alert("编辑信息框不能为空，修改失败");
-                    return ;
+                    return;
                 }
-                if(tel.length !=11){
+                if (tel.length != 11) {
                     alert("手机号码格式不正确");
-                    return ;
+                    return;
                 }
                 var _self = this;
                 $.ajax({
-                    type:"POST",
-                    url:"/users/change-info",
-                    async:false,
-                    dataType:"json",
-                    data:{'tel':tel, 'address':address, 'major':major},
-                    success:function (result) {
-                        if(result.resultCode == 200){
-                            convertText(numObj,tel);
-                            convertText(addressObj,address);
-                            convertText(majorObj,major);
+                    type: "POST",
+                    url: "/users/change-info",
+                    async: false,
+                    dataType: "json",
+                    data: {'tel': tel, 'address': address, 'major': major},
+                    success: function (result) {
+                        if (result.resultCode == 200) {
+                            convertText(numObj, tel);
+                            convertText(addressObj, address);
+                            convertText(majorObj, major);
                             $(_self).text("编辑个人信息");
                             alert("保存信息成功");
-                        }else{
-                            convertEditInput(numObj,tel);
-                            convertEditInput(addressObj,address);
-                            convertEditInput(majorObj,major);
-                            alert("保存信息失败；原因："+result.message);
+                        } else {
+                            convertEditInput(numObj, tel);
+                            convertEditInput(addressObj, address);
+                            convertEditInput(majorObj, major);
+                            alert("保存信息失败；原因：" + result.message);
                         }
                     },
-                    error:function(){
+                    error: function () {
                         alert("修改失败");
                     }
                 });
-            }else{
-                convertEditInput(numObj,numObj.text());
-                convertEditInput(addressObj,addressObj.text());
-                convertEditInput(majorObj,majorObj.text());
+            } else {
+                convertEditInput(numObj, numObj.text());
+                convertEditInput(addressObj, addressObj.text());
+                convertEditInput(majorObj, majorObj.text());
                 $(this).text("保存个人信息");
             }
         });

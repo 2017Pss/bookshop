@@ -11,7 +11,7 @@
     <!-- 导航 -->
     <nav class="navbar">
         <div class="nav-info">
-            <a href="/users/myhome/${1}" class="username">${user.getName()}</a>
+            <a href="/users/myhome/1" class="username">${user.getName()}</a>
             <a href="/myBookshelf.do" class="bookshelf">||&nbsp;&nbsp;&nbsp;我的书架</a>
             <a href="/logout.do" class="logout">[ 退 出 ]</a>
         </div> <!-- nav-info -->
@@ -79,11 +79,11 @@
                     <span class="book-price">￥${book.getPrice()}
                             <a href="javascript:;" bookcollectId="${book.getCollectId()}" bookId="${book.getId()}"
                                class="book-buy book-collect
-                                <c:if test="${book.getCollectId() >= 1}">
+                                <c:if test="${book.getCollectId()>0}">
                                     book-disable-collect
                                 </c:if>">
                                 <c:choose>
-                                    <c:when test="${book.getCollectId()>=1}">
+                                    <c:when test="${book.getCollectId()>0}">
                                         已收藏
                                     </c:when>
                                     <c:when test="${book.getCollectId()==0}">
