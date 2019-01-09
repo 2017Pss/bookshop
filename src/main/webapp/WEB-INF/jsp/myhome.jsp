@@ -100,23 +100,15 @@
             <tr>
                 <td colspan="6" style="border-bottom-width: 0px">
                     <div class="pagination" pagenumber="${pageNumber}">
-                        <a href="/users/myhome/1" class="firstPage">首页</a>
-                        <c:if test="${pageNumber-1==0}">
-                            <span class="disabled">上一页</span>
-                        </c:if>
-                        <c:if test="${pageNumber-1>0}">
-                            <a href="/users/myhome/${pageNumber-1}" currentPage="${pageNumber}" class="previousPage">上一页</a>
-                        </c:if>
-                        <c:forEach var="pageCounts" begin="1" end="${pageCount}">
-                            <a href="/users/myhome/${pageCounts}">${pageCounts}</a>
+                        <a <c:if test="${pageNumber > 1}">href="/users/myhome/1"</c:if> class="firstPage <c:if test="${pageNumber <= 1}">disabled</c:if>">首页</a>
+                        <a <c:if test="${pageNumber > 1}">href="/users/myhome/${pageNumber-1}"</c:if> class="previousPage <c:if test="${pageNumber <= 1}">disabled</c:if>">上一页</a>
+
+                        <!-- 设置 begin、end 控制最多显示上下3页 -->
+                        <c:forEach var="pageCounts" begin="${ pageNumber - 3 > 0 ? pageNumber - 3 : 1}" end="${ pageNumber + 3 > pageCount ? pageCount : pageNumber + 3}">
+                            <a href="/users/myhome/${pageCounts}" class="<c:if test="${pageCounts == pageNumber}">current</c:if>" >${pageCounts}</a>
                         </c:forEach>
-                        <c:if test="${pageNumber+1>pageCount}">
-                            <span class="disabled">下一页</span>
-                        </c:if>
-                        <c:if test="${pageNumber+1<=pageCount}">
-                            <a href="/users/myhome/${pageNumber+1}" currentPage="${pageNumber}" class="nextPage">下一页</a>
-                        </c:if>
-                        <a href="/users/myhome/${pageCount}" class="lastPage">尾页</a>
+                        <a <c:if test="${pageNumber < pageCount}" >href="/users/myhome/${pageNumber+1}"</c:if> class="nextPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">下一页</a>
+                        <a <c:if test="${pageNumber < pageCount}">href="/users/myhome/${pageCount}"</c:if> class="lastPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">尾页</a>
                     </div>
                 </td>
             </tr>
