@@ -103,9 +103,11 @@
                         <a <c:if test="${pageNumber > 1}">href="/users/myhome/1"</c:if> class="firstPage <c:if test="${pageNumber <= 1}">disabled</c:if>">首页</a>
                         <a <c:if test="${pageNumber > 1}">href="/users/myhome/${pageNumber-1}"</c:if> class="previousPage <c:if test="${pageNumber <= 1}">disabled</c:if>">上一页</a>
 
-                        <!-- 设置 begin、end 控制最多显示上下3页 -->
-                        <c:forEach var="pageCounts" begin="${ pageNumber - 3 > 0 ? pageNumber - 3 : 1}" end="${ pageNumber + 3 > pageCount ? pageCount : pageNumber + 3}">
-                            <a href="/users/myhome/${pageCounts}" class="<c:if test="${pageCounts == pageNumber}">current</c:if>" >${pageCounts}</a>
+                        <c:forEach var="pageCurrent" begin="${ pageCount <= 5 ? 1 :
+                        (pageNumber >= 4 ? (pageNumber == pageCount ? pageNumber - 4 :
+                        (pageNumber + 2 > pageCount ? pageNumber - 3 : pageNumber - 2)) :
+                        1)}" end="${pageCount <= 5 ? pageCount : (pageNumber >= 4 ? (pageNumber + 2 > pageCount ? pageCount : pageNumber + 2) : 5)}">
+                            <a href="/users/myhome/${pageCurrent}" class="<c:if test="${pageCurrent == pageNumber}">current</c:if>" >${pageCurrent}</a>
                         </c:forEach>
                         <a <c:if test="${pageNumber < pageCount}" >href="/users/myhome/${pageNumber+1}"</c:if> class="nextPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">下一页</a>
                         <a <c:if test="${pageNumber < pageCount}">href="/users/myhome/${pageCount}"</c:if> class="lastPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">尾页</a>
@@ -127,16 +129,6 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/myBookshelf.js"></script>
 <script>
-
-    // $(function () {
-    //     $(".pagination a.previousPage").click(function () {
-    //         var currentPage = $(this).attr('currentPage');
-    //         if (currentPage==0){
-    //             $(this).addClass(disabled);
-    //         }
-    //     });
-    // });
-
 
     function convertEditInput(obj, value) {
         var inputObj = $("<input type='text' />").val(value);

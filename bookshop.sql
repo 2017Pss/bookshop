@@ -219,12 +219,18 @@ INSERT INTO `user` VALUES (3, '1505112', '彭于晏', '123456', 'm', '1581234567
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-create table book_collect
-(
-  id          int auto_increment comment '自增ID'  primary key,
-  book_id     int null comment '图书表ID',
-  user_id     int null comment '用户ID',
-  create_time timestamp default CURRENT_TIMESTAMP not null  comment '创建时间'
+
+CREATE TABLE `book_collect` (
+  `id`  int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID' ,
+  `book_id`  int(11) NULL DEFAULT NULL COMMENT '图书表ID' ,
+  `student_id`  varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户ID' ,
+  `create_time`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间' ,
+  `collect_price`  double(12,2) NULL DEFAULT NULL COMMENT '收藏价格' ,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `book_collect_user_id_index` (`student_id`, `book_id`) USING BTREE
 )
-  comment '图书收藏表';
-create index book_collect_user_id_index on book_collect (user_id);
+  ENGINE=InnoDB DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+  COMMENT='图书收藏表' AUTO_INCREMENT=58 ROW_FORMAT=DYNAMIC;
+
+
+

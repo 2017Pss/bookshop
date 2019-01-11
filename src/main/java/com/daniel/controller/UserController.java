@@ -52,7 +52,7 @@ public class UserController {
             Map data = new HashMap();
             data.put("currentUser",user);
             // 登录成功，将登录信息放入session
-             request.getSession().setAttribute("user",userService.getByStudentid(user.getStudentid()));
+             request.getSession().setAttribute("user",userService.getByStudentId(user.getStudentid()));
             return ResultGenerator.genSuccessResult(data);
         }else {
             return ResultGenerator.genFailResult("学号或密码输入错误！");

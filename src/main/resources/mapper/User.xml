@@ -9,7 +9,7 @@
         select * from user where id= #{id}
     </select>
 
-    <select id="getByStudentid" resultType="User">
+    <select id="getByStudentId" resultType="User">
         select * from user where studentid= #{studentid}
     </select>
 

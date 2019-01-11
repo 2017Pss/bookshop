@@ -12,6 +12,6 @@ public interface UserDAO {
 
     int checkPassword(User user);
 
-    User getByStudentid(String studentid);
+    User getByStudentId(String studentid);
 
 }
