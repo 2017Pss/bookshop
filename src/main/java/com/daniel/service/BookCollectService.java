@@ -13,6 +13,12 @@ public interface BookCollectService {
      */
     void add(BookCollect bookcollect);
 
+    /**
+     * 删除收藏图书
+     * @param id
+     */
+    void delete(int id);
+
     int getPageCount(String id);
 
     List<Book> getBookAndCollectBook(int startIndex,String id);

@@ -38,4 +38,16 @@ public class BookCollectController {
         return ResultGenerator.genSuccessResult(null);
     }
 
+    @RequestMapping(value = "/delete.do",method = RequestMethod.POST)
+    @ResponseBody
+    public Result delete(int deleteBookId){
+        if(deleteBookId > 0){
+            bookCollectService.delete(deleteBookId);
+            return ResultGenerator.genSuccessResult(null);
+        }else {
+            return ResultGenerator.genFailResult("图书id不正确,移除失败");
+        }
+
+    }
+
 }

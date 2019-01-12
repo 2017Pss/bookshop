@@ -93,7 +93,7 @@
                     <td>￥${collectBook.getOriginalPrice()}</td>
                     <td>￥${collectBook.getPrice()}</td>
                     <td>${collectBook.getDescription()}</td>
-                    <td>移除收藏</td>
+                    <td><a href="javascript:;" id="deleteBook" deleteBookId="${collectBook.getId()}"> 移除收藏</a></td>
                 </tr>
             </c:forEach>
 
@@ -194,6 +194,31 @@
                 convertEditInput(addressObj, addressObj.text());
                 convertEditInput(majorObj, majorObj.text());
                 $(this).text("保存个人信息");
+            }
+        });
+
+        $("#deleteBook").click(function () {
+            var deleteBookId = $(this).attr('deleteBookId');
+            debugger
+            if (deleteBookId > 0){
+                $.ajax({
+                    type: "POST",
+                    url: "/collect/delete.do",
+                    async: false,
+                    dataType: "json",
+                    data: {'deleteBookId': deleteBookId},
+                    success: function (result) {
+                        if (result.resultCode == 200) {
+                            alert("移除成功");
+                            location.href = "/users/myhome/${pageNumber}";
+                        } else {
+                            alert("移除失败；原因：" + result.message);
+                        }
+                    },
+                    error: function () {
+                        alert("移除失败");
+                    }
+                });
             }
         });
     });

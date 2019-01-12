@@ -25,4 +25,8 @@
         select count(*) from book_collect where student_id = #{id}
     </select>
 
+    <delete id="delete" parameterType="int" >
+        delete from book_collect where book_id= #{id}
+    </delete>
+
 </mapper>

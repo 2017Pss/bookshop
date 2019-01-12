@@ -35,4 +35,10 @@ public interface BookCollectDAO {
      * @return 总数量
      */
     int getCollectBookNum(@Param("id") String id);
+
+    /**
+     * 删除收藏图书
+     * @param bookCollect
+     */
+    void delete(int id);
 }
