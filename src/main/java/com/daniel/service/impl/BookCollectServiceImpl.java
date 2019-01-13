@@ -44,8 +44,8 @@ public class BookCollectServiceImpl implements BookCollectService {
     }
 
     @Override
-    public void delete(int id) {
-        bookCollectDAO.delete(id);
+    public int delete(int id) {
+        return bookCollectDAO.delete(id);
     }
 
     @Override

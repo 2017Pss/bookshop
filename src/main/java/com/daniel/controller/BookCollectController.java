@@ -42,8 +42,11 @@ public class BookCollectController {
     @ResponseBody
     public Result delete(int deleteBookId){
         if(deleteBookId > 0){
-            bookCollectService.delete(deleteBookId);
-            return ResultGenerator.genSuccessResult(null);
+            if(bookCollectService.delete(deleteBookId) > 0){
+                return ResultGenerator.genSuccessResult(null);
+            }else {
+                return ResultGenerator.genFailResult("未找到该书本,移除失败");
+            }
         }else {
             return ResultGenerator.genFailResult("图书id不正确,移除失败");
         }

@@ -38,7 +38,7 @@ public interface BookCollectDAO {
 
     /**
      * 删除收藏图书
-     * @param bookCollect
+     * @param
      */
-    void delete(int id);
+    int delete(int id);
 }

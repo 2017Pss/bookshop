@@ -17,7 +17,7 @@ public interface BookCollectService {
      * 删除收藏图书
      * @param id
      */
-    void delete(int id);
+    int delete(int id);
 
     int getPageCount(String id);
 

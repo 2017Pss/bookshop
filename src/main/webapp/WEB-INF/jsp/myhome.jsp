@@ -93,7 +93,7 @@
                     <td>￥${collectBook.getOriginalPrice()}</td>
                     <td>￥${collectBook.getPrice()}</td>
                     <td>${collectBook.getDescription()}</td>
-                    <td><a href="javascript:;" id="deleteBook" deleteBookId="${collectBook.getId()}"> 移除收藏</a></td>
+                    <td><a href="javascript:;" style="text-decoration: none; color: red" onclick="del(${collectBook.getId()})" deleteBookId="${collectBook.getId()}"> 移除收藏</a></td>
                 </tr>
             </c:forEach>
 
@@ -109,12 +109,13 @@
                         1)}" end="${pageCount <= 5 ? pageCount : (pageNumber >= 4 ? (pageNumber + 2 > pageCount ? pageCount : pageNumber + 2) : 5)}">
                             <a href="/users/myhome/${pageCurrent}" class="<c:if test="${pageCurrent == pageNumber}">current</c:if>" >${pageCurrent}</a>
                         </c:forEach> --%>
+                        <%-- end = "${pageCount > 5 ? (pageCount - 3 < pageNumber ? pageCount : (pageNumber > 3 ? pageNumber + 2 : 5 )) : pageCount}"  --%>
 
 
-                        <c:set var="begin" value="${ pageCount > 5  && pageNumber > 3  ? ( pageCount - pageNumber > 2 ? pageNumber -2 : pageCount - 4 ) : 1}" />
-                        <c:set var="end" value="${begin + 4 > pageCount? pageCount :  begin + 4}" />
+                        <c:set var="begin" value="${ pageCount > 5  && pageNumber > 3 ? ( pageCount - pageNumber > 2 ? pageNumber -2 : pageCount - 4 ) : 1}" />
+                        <c:set var="end" value="${ begin + 4 > pageCount? pageCount : begin + 4}" />
 
-                        <%-- <c:set var="end2" value="${pageCount > 5 ?  (pageCount - pageNumber > 2 ?  (pageNumber > 3 ? pageNumber + 2 : 5 ) : pageCount ):  pageCount}"/>
+                        <%-- <c:set var="end2" value="${ pageCount > 5 ? (pageCount - pageNumber > 2 ? (pageNumber > 3 ? pageNumber + 2 : 5 ) : pageCount ): pageCount}"/>
                         <c:set var="begin2" value="${end2 - 4 > 0 ? end2 - 4  : 1}" /> --%>
 
 
@@ -143,6 +144,33 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/myBookshelf.js"></script>
 <script>
+
+    function del(bookId) {
+        var deleteBookId = bookId;
+        if (confirm("确定移除该收藏书籍吗？")){
+            if (deleteBookId > 0){
+                $.ajax({
+                    type: "POST",
+                    url: "/collect/delete.do",
+                    async: false,
+                    dataType: "json",
+                    data: {'deleteBookId': deleteBookId},
+                    success: function (result) {
+                        if (result.resultCode == 200) {
+                            alert("移除成功");
+                            location.href = "/users/myhome/${pageNumber}";
+                        } else {
+                            alert("移除失败；原因：" + result.message);
+                        }
+                    },
+                    error: function () {
+                        alert("移除失败");
+                    }
+                });
+            }
+        }
+    }
+
 
     function convertEditInput(obj, value) {
         var inputObj = $("<input type='text' />").val(value);
@@ -211,30 +239,32 @@
             }
         });
 
-        $("#deleteBook").click(function () {
+        /*$("#deleteBook").click(function () {
             var deleteBookId = $(this).attr('deleteBookId');
             debugger
-            if (deleteBookId > 0){
-                $.ajax({
-                    type: "POST",
-                    url: "/collect/delete.do",
-                    async: false,
-                    dataType: "json",
-                    data: {'deleteBookId': deleteBookId},
-                    success: function (result) {
-                        if (result.resultCode == 200) {
-                            alert("移除成功");
-                            location.href = "/users/myhome/${pageNumber}";
-                        } else {
-                            alert("移除失败；原因：" + result.message);
+            if (confirm("确定移除该收藏书籍吗？")){
+                if (deleteBookId > 0){
+                    $.ajax({
+                        type: "POST",
+                        url: "/collect/delete.do",
+                        async: false,
+                        dataType: "json",
+                        data: {'deleteBookId': deleteBookId},
+                        success: function (result) {
+                            if (result.resultCode == 200) {
+                                alert("移除成功");
+                                location.href = "/users/myhome/${pageNumber}";
+                            } else {
+                                alert("移除失败；原因：" + result.message);
+                            }
+                        },
+                        error: function () {
+                            alert("移除失败");
                         }
-                    },
-                    error: function () {
-                        alert("移除失败");
-                    }
-                });
+                    });
+                }
             }
-        });
+        });*/
     });
 </script>
 </body>
