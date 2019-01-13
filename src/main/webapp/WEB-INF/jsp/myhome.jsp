@@ -103,12 +103,26 @@
                         <a <c:if test="${pageNumber > 1}">href="/users/myhome/1"</c:if> class="firstPage <c:if test="${pageNumber <= 1}">disabled</c:if>">首页</a>
                         <a <c:if test="${pageNumber > 1}">href="/users/myhome/${pageNumber-1}"</c:if> class="previousPage <c:if test="${pageNumber <= 1}">disabled</c:if>">上一页</a>
 
-                        <c:forEach var="pageCurrent" begin="${ pageCount <= 5 ? 1 :
+                        <%-- <c:forEach var="pageCurrent" begin="${ pageCount <= 5 ? 1 :
                         (pageNumber >= 4 ? (pageNumber == pageCount ? pageNumber - 4 :
                         (pageNumber + 2 > pageCount ? pageNumber - 3 : pageNumber - 2)) :
                         1)}" end="${pageCount <= 5 ? pageCount : (pageNumber >= 4 ? (pageNumber + 2 > pageCount ? pageCount : pageNumber + 2) : 5)}">
                             <a href="/users/myhome/${pageCurrent}" class="<c:if test="${pageCurrent == pageNumber}">current</c:if>" >${pageCurrent}</a>
+                        </c:forEach> --%>
+
+
+                        <c:set var="begin" value="${ pageCount > 5  && pageNumber > 3  ? ( pageCount - pageNumber > 2 ? pageNumber -2 : pageCount - 4 ) : 1}" />
+                        <c:set var="end" value="${begin + 4 > pageCount? pageCount :  begin + 4}" />
+
+                        <%-- <c:set var="end2" value="${pageCount > 5 ?  (pageCount - pageNumber > 2 ?  (pageNumber > 3 ? pageNumber + 2 : 5 ) : pageCount ):  pageCount}"/>
+                        <c:set var="begin2" value="${end2 - 4 > 0 ? end2 - 4  : 1}" /> --%>
+
+
+                        <c:forEach var="tempPageNumber" begin="${begin}" end="${end}">
+                            <a href="/users/myhome/${tempPageNumber}" class="<c:if test="${tempPageNumber == pageNumber}">current</c:if>" >${tempPageNumber}</a>
                         </c:forEach>
+
+
                         <a <c:if test="${pageNumber < pageCount}" >href="/users/myhome/${pageNumber+1}"</c:if> class="nextPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">下一页</a>
                         <a <c:if test="${pageNumber < pageCount}">href="/users/myhome/${pageCount}"</c:if> class="lastPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">尾页</a>
                     </div>
