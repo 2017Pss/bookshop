@@ -1,7 +1,5 @@
 package com.daniel.pojo;
 
-import java.util.Date;
-
 public class Book {
 
     private int id;

@@ -1,6 +1,5 @@
 package com.daniel.service.impl;
 
-import com.daniel.dao.BookCollectDAO;
 import com.daniel.dao.BookDAO;
 import com.daniel.dao.BookImageDAO;
 import com.daniel.dao.CategoryDAO;
@@ -12,7 +11,9 @@ import com.daniel.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BookServiceImpl implements BookService{

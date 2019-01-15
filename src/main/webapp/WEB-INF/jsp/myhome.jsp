@@ -93,21 +93,21 @@
                     <td>￥${collectBook.getOriginalPrice()}</td>
                     <td>￥${collectBook.getPrice()}</td>
                     <td>${collectBook.getDescription()}</td>
-                    <td><a href="javascript:;" style="text-decoration: none; color: red" onclick="del(${collectBook.getId()})" deleteBookId="${collectBook.getId()}"> 移除收藏</a></td>
+                    <td><a href="javascript:;" class="deleteBook" style="text-decoration: none; color: red" deleteBookId="${collectBook.getId()}"> 移除收藏</a></td>
                 </tr>
             </c:forEach>
 
             <tr>
                 <td colspan="6" style="border-bottom-width: 0px">
                     <div class="pagination" pagenumber="${pageNumber}">
-                        <a <c:if test="${pageNumber > 1}">href="/users/myhome/1"</c:if> class="firstPage <c:if test="${pageNumber <= 1}">disabled</c:if>">首页</a>
-                        <a <c:if test="${pageNumber > 1}">href="/users/myhome/${pageNumber-1}"</c:if> class="previousPage <c:if test="${pageNumber <= 1}">disabled</c:if>">上一页</a>
+                        <a <c:if test="${pageNumber > 1}">href="/collect/myhome/1"</c:if> class="firstPage <c:if test="${pageNumber <= 1}">disabled</c:if>">首页</a>
+                        <a <c:if test="${pageNumber > 1}">href="/collect/myhome/${pageNumber-1}"</c:if> class="previousPage <c:if test="${pageNumber <= 1}">disabled</c:if>">上一页</a>
 
                         <%-- <c:forEach var="pageCurrent" begin="${ pageCount <= 5 ? 1 :
                         (pageNumber >= 4 ? (pageNumber == pageCount ? pageNumber - 4 :
                         (pageNumber + 2 > pageCount ? pageNumber - 3 : pageNumber - 2)) :
                         1)}" end="${pageCount <= 5 ? pageCount : (pageNumber >= 4 ? (pageNumber + 2 > pageCount ? pageCount : pageNumber + 2) : 5)}">
-                            <a href="/users/myhome/${pageCurrent}" class="<c:if test="${pageCurrent == pageNumber}">current</c:if>" >${pageCurrent}</a>
+                            <a href="/collect/myhome/${pageCurrent}" class="<c:if test="${pageCurrent == pageNumber}">current</c:if>" >${pageCurrent}</a>
                         </c:forEach> --%>
                         <%-- end = "${pageCount > 5 ? (pageCount - 3 < pageNumber ? pageCount : (pageNumber > 3 ? pageNumber + 2 : 5 )) : pageCount}"  --%>
 
@@ -120,12 +120,12 @@
 
 
                         <c:forEach var="tempPageNumber" begin="${begin}" end="${end}">
-                            <a href="/users/myhome/${tempPageNumber}" class="<c:if test="${tempPageNumber == pageNumber}">current</c:if>" >${tempPageNumber}</a>
+                            <a href="/collect/myhome/${tempPageNumber}" class="<c:if test="${tempPageNumber == pageNumber}">current</c:if>" >${tempPageNumber}</a>
                         </c:forEach>
 
 
-                        <a <c:if test="${pageNumber < pageCount}" >href="/users/myhome/${pageNumber+1}"</c:if> class="nextPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">下一页</a>
-                        <a <c:if test="${pageNumber < pageCount}">href="/users/myhome/${pageCount}"</c:if> class="lastPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">尾页</a>
+                        <a <c:if test="${pageNumber < pageCount}" >href="/collect/myhome/${pageNumber+1}"</c:if> class="nextPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">下一页</a>
+                        <a <c:if test="${pageNumber < pageCount}">href="/collect/myhome/${pageCount}"</c:if> class="lastPage <c:if test="${pageNumber >= pageCount}">disabled</c:if>">尾页</a>
                     </div>
                 </td>
             </tr>
@@ -145,33 +145,6 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/myBookshelf.js"></script>
 <script>
 
-    function del(bookId) {
-        var deleteBookId = bookId;
-        if (confirm("确定移除该收藏书籍吗？")){
-            if (deleteBookId > 0){
-                $.ajax({
-                    type: "POST",
-                    url: "/collect/delete.do",
-                    async: false,
-                    dataType: "json",
-                    data: {'deleteBookId': deleteBookId},
-                    success: function (result) {
-                        if (result.resultCode == 200) {
-                            alert("移除成功");
-                            location.href = "/users/myhome/${pageNumber}";
-                        } else {
-                            alert("移除失败；原因：" + result.message);
-                        }
-                    },
-                    error: function () {
-                        alert("移除失败");
-                    }
-                });
-            }
-        }
-    }
-
-
     function convertEditInput(obj, value) {
         var inputObj = $("<input type='text' />").val(value);
         $(obj).html(inputObj);
@@ -187,7 +160,6 @@
         }
         return false;
     }
-
 
     $(function () {
         $(".person-info a.edit").click(function () {
@@ -209,7 +181,7 @@
                 var _self = this;
                 $.ajax({
                     type: "POST",
-                    url: "/users/change-info",
+                    url: "/collect/change-info",
                     async: false,
                     dataType: "json",
                     data: {'tel': tel, 'address': address, 'major': major},
@@ -239,7 +211,7 @@
             }
         });
 
-        /*$("#deleteBook").click(function () {
+        $(".deleteBook").click(function () {
             var deleteBookId = $(this).attr('deleteBookId');
             debugger
             if (confirm("确定移除该收藏书籍吗？")){
@@ -253,7 +225,7 @@
                         success: function (result) {
                             if (result.resultCode == 200) {
                                 alert("移除成功");
-                                location.href = "/users/myhome/${pageNumber}";
+                                location.href = "/collect/myhome/${pageNumber}";
                             } else {
                                 alert("移除失败；原因：" + result.message);
                             }
@@ -264,7 +236,7 @@
                     });
                 }
             }
-        });*/
+        });
     });
 </script>
 </body>

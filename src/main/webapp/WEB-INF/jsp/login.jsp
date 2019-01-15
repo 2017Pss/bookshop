@@ -46,7 +46,7 @@
                 success: function (result) {
                     if (result.resultCode == 200) {
                         event.preventDefault();
-                        location.href = "home.do";
+                        location.href = "/home.do";
                     } else {
                         event.preventDefault();
                         $('#errorInfo').html(result.message);
