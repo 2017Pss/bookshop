@@ -13,7 +13,7 @@
         <div class="nav-info">
             <a href="/collect/myhome/1" class="username">${user.getName()}</a>
             <a href="/myBookshelf.do" class="bookshelf">||&nbsp;&nbsp;&nbsp;我的书架</a>
-            <a href="/logout.do" class="logout">[ 退 出 ]</a>
+            <a href="/users/logout.do" class="logout">[ 退 出 ]</a>
         </div> <!-- nav-info -->
         <form action="searchBook.do" method="post">
         <div class="nav-search">

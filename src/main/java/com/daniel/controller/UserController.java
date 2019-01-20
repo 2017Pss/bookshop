@@ -60,7 +60,7 @@ public class UserController {
     @RequestMapping("/logout.do")
     public ModelAndView logout(HttpServletRequest request) {
         request.getSession().removeAttribute("user");
-        return new ModelAndView("login");
+        return new ModelAndView("redirect:/users");
     }
 
     /**

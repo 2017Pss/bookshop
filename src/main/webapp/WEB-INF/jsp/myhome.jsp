@@ -31,7 +31,7 @@
     <div class="nav-info">
         <a href="#" class="username">${user.getName()}</a>
         <a href="/myBookshelf.do" class="bookshelf">||&nbsp;&nbsp;&nbsp;我的书架</a>
-        <a href="/logout.do" class="logout">[ 退 出 ]</a>
+        <a href="/users/logout.do" class="logout">[ 退 出 ]</a>
     </div> <!-- nav-info-end -->
 </nav>
 
@@ -181,8 +181,8 @@
                 var _self = this;
                 $.ajax({
                     type: "POST",
-                    url: "/collect/change-info",
-                    async: false,
+                    url: "/users/change-info",
+                    async: true,
                     dataType: "json",
                     data: {'tel': tel, 'address': address, 'major': major},
                     success: function (result) {

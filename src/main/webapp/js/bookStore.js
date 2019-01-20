@@ -19,6 +19,7 @@ $(function(){
 
 		//展示对应板块，删除更多，展示翻页
 		var showClass = $(this).find("a").attr("href");
+		debugger
 		var $showClassDiv = $("#book-container").find(showClass);
 		// console.log(showClass);
 		$showClassDiv.show().siblings("div").hide();

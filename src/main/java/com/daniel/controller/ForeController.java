@@ -19,8 +19,6 @@ public class ForeController {
     private BookService bookService;
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private BookCollectService bookCollectService;
 
     @RequestMapping("/home.do")
     public ModelAndView goHome(HttpServletRequest request) {
