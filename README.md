@@ -2,7 +2,7 @@
 这是一个功能简单，使用Spring + Spring MVC + Mybatis搭建的二手书交易系统
 
 # 简单体验
-- 学号：1505119  密码：675844
+- 学号：1505119  密码：123456
 - 访问：http://119.29.93.152:8080/mybookshop/
 
 # 快速上手
@@ -17,7 +17,7 @@
 - 创建一个名为bookshop的数据库，将bookshop.sql导入
 - 打开IntelliJ IDEA，将项目导入
 - 修改jdbc.properties文件配置，同时配置Tomcat(不用配置系统的ContextPath);
-- 开始运行，访问http://localhost:8080/users
+- 开始运行，访问http://localhost:8080/users 或者访问http://localhost:8080/
 
 # 目前实现的功能有：
 - 登录
